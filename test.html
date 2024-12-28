@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test n daisy-UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet"/>
+</head>
+
+<body class=" font-sans pt-16 ">
+  <header class="navbar fixed top-0 left-0 right-0 border-2 rounded bg-base-300"></header>
+  
+  <!-- Main Form Container -->
+  <div class="w-full min-h-screen flex flex-col gap-4 md:flex-row p-4  border-base-300">
+    
+    <!-- Mobile View Container for Aadhar and PAN Uploads -->
+    <div class="w-full sm:hidden border-t border-base-300 p-4 rounded">
+      <div class="container mx-auto flex justify-between items-center">
+        <div>
+          <h2 class="text-center text-black">Aadhaar Proof</h2>
+          <label class="btn bg-yellow-300 text-black px-1 py-2 hover:bg-yellow-400 border-2 border-black">
+            File Show / Camera<br />File Upload
+            <input type="file" class="hidden" />
+          </label>
+        </div>
+        <div>
+          <h2 class="text-center text-black">Pan Proof</h2>
+          <label class="btn bg-yellow-300 text-black px-1 py-2 hover:bg-yellow-400 border-2 border-black">
+            File Show / Camera<br />File Upload
+            <input type="file" class="hidden" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop View Container with Background Image -->
+    <div class="hidden sm:block sm:flex-1 sm:p-6 sm:rounded-lg sm:text-white sm:border-2 sm:rounded sm:border-accent-content">
+      <div class="hidden md:flex p-4 rounded-lg sm:bg-cyan-800">
+        <div class="flex flex-col md:flex-row md:justify-around items-center gap-4 ">
+          <button class="btn bg-white text-black w-full md:w-[300px] ">AADHAAR
+            PROOF</button>
+          <button class="btn bg-white text-black w-full md:w-[300px] ">PAN PROOF</button>
+        </div>
+      </div>
+      <div class="max-w-md mx-auto">
+     
+        <!-- File Input -->
+        <div id="fileInputContainer" class="mb-4">
+          <div class="flex items-center justify-center h-[60px] bg-base-100 rounded-lg shadow-md p-6 mt-[180px] ">
+            <label class="relative inline-block w-full cursor-pointer">
+              <input 
+                type="file" 
+                accept="image/*" 
+                id="imageInput" 
+                class="file-input file-input-bordered file-input-primary opacity-0 absolute inset-0" 
+                onchange="handleFileInput(event)"
+              />
+              <span class="flex items-center justify-center text-center text-lg font-semibold text-base-content w-full h-full ">
+                File Show / Camera<br />File Upload
+              </span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Image Display Container -->
+        <div id="imageContainer" class="w-full h-full  rounded-lg overflow-hidden flex items-center justify-center ">
+        </div>
+      </div>
+    </div>
+
+    <!-- PAN Details Form -->
+    <div class="flex-1 p-6 rounded-lg shadow-lg border-2 mb-[65px]">
+      <form class="space-y-4">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Pan Number *</span>
+          </label>
+          <input type="text" placeholder="PAN Number *" class="input input-bordered" required>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Name</span>
+          </label>
+          <input type="text" placeholder="Name as per PAN Website" class="input input-bordered">
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Date of Birth *</span>
+            </label>
+            <input type="date" class="input input-bordered" required>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Aadhaar Number*</span>
+            </label>
+            <input type="text" placeholder="Aadhaar Number (Last 4 Digits Only) *" class="input input-bordered" required>
+          </div>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Father Name *</span>
+          </label>
+          <input type="text" placeholder="Father's Name *" class="input input-bordered">
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Mother Name *</span>
+          </label>
+          <input type="text" placeholder="Mother Name" class="input input-bordered">
+        </div>
+        <div class="form-control">
+          <label class="cursor-pointer label">
+            <span class="label-text">Gender *</span>
+          </label>
+
+          <div class="flex space-x-4">
+            <!-- Gender Options -->
+            <button id="male" class="btn border-neutral-content btn-sm text-center gender-btn">Male</button>
+            <button id="female" class="btn border-neutral-content btn-sm text-center gender-btn">Female</button>
+            <button id="trans" class="btn border-neutral-content btn-sm text-center gender-btn">Trans</button>
+          </div>
+        </div>
+
+        <!-- Marital Status -->
+        <div class="form-control">
+          <label class="cursor-pointer label">
+            <span class="label-text">Marital Status *</span>
+          </label>
+
+          <div class="flex space-x-4">
+            <!-- Marital Status Options -->
+            <button id="single" class="btn border-neutral-content btn-sm text-center gender-btn">Single</button>
+            <button id="married" class="btn border-neutral-content btn-sm text-center gender-btn">Married</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+  </div>
+
+  <!-- Footer -->
+  <footer class="hidden md:flex flex-col md:flex-row flex-nowrap justify-between items-center gap-4 p-4 bg-base-300 border-t border-base-300 fixed bottom-0 left-0 right-0 z-10">
+    <button class="btn bg-cyan-800 text-white w-full md:w-auto px-6 py-2 text-center">Previous</button>
+    <button class="btn bg-cyan-800 text-white w-full md:w-auto px-6 py-2 text-center">Next</button>
+  </footer>
+
+  <!-- Mobile Footer -->
+  <div class="fixed bottom-0 left-0 right-0 bg-base-300 border-t border-base-300 z-10 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <button class="btn bg-accent-content text-white px-6 py-2 hover:bg-cyan-700 w-1/2 sm:w-auto">Previous</button>
+      <button class="btn bg-primary text-white px-6 py-2 hover:bg-cyan-700 w-1/2 sm:w-auto">Next</button>
+    </div>
+  </div>
+
+</body>
+<script>
+  function handleFileInput(event) {
+    const file = event.target.files[0];
+    const fileInputContainer = document.getElementById("fileInputContainer");
+    const imageContainer = document.getElementById("imageContainer");
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        // Hide the file input container
+        fileInputContainer.style.display = "none";
+
+        // Display the image
+        imageContainer.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image" class="w-full h-full object-cover">`;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // Reset to default if no file is selected
+      fileInputContainer.style.display = "block";
+      imageContainer.innerHTML = `<span class="text-gray-500 text-lg">Image Preview</span>`;
+    }
+  }
+</script>
+</html>
